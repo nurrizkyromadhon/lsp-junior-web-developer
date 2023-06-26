@@ -1,0 +1,91 @@
+<?php
+    include '../config.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>        
+    <title>Document</title>
+</head>
+<body>
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary static-top">
+    <div class="container">
+        <a class="navbar-brand" href="../index.php">
+            <img src="../src/icon/logo BPSDMP.png" alt="..." height="36">
+            <span>BDPSDM Kominfo Surabaya</span>
+        </a>        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="../index.php">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.php">About</a>
+                </li>
+                <li class="nav-item dropdown bg-info">
+                    <a class="nav-link text-white" href="login.php">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="home bg-light">
+        <div class="container">
+        <?php
+            $id_kegiatan = $_GET['id'];
+            $no=1;
+            $kegiatan = mysqli_query($koneksi, "SELECT * FROM kegiatan where id_kegiatan='$id_kegiatan'");
+            $hslkeg = mysqli_fetch_array($kegiatan);
+            function active_radio($value, $input){
+                $result = $value == $input ? 'checked':'';
+                return $result;
+            }
+        ?>                
+        <h2 class="text-center mt-2"><?= $hslkeg['judul_kegiatan']; ?></h2>
+        <div class="row mt-5">
+            <div class="col-6">
+                <img src="../src/images/kegiatan/<?= $hslkeg['gambar']; ?>" class="img-rounded" width="100%" height="100%"/>
+            </div>
+            <div class="col-6">
+                <p><?= $hslkeg['isi_kegiatan']; ?></p>
+            </div>
+        </div>  
+        </div>                      
+    </div>		
+    
+    <!-- FOOTER -->
+    <footer class="w-100 py-4 flex-shrink-0 bg-primary text-white">
+        <div class="container py-4">
+            <div class="row gy-4 gx-5">
+                <div class="col-lg-6 col-md-6">
+                    <h4>TENTANG KAMI</h4>
+                    <p class="small">Balai Pengembangan Sumber Daya Manusia dan Penelitian Komunikasi dan Informatika Surabaya
+					Badan Penelitian dan Pengembangan Sumber Daya Manusia - Kementerian Komunikasi dan Informatika Republik Indonesia</p>
+                    <p class="small mb-0">&copy; Copyrights. All rights reserved. <span>Nur Rizky Romadhon</span></p>
+                </div>
+				<div class="col-lg-6 col-md-6">
+                    <h4>HUBUNGI KAMI</h4>										
+                    <p class="small">Jl. Raya Ketajen No.36, Ketajen, Kec. Gedangan, Kabupaten Sidoarjo, Jawa Timur 61254</p>
+					<p class="small">(031) 8011944</p>
+					<p class="small">Jawa Timur</p>                    
+                </div>                
+            </div>
+        </div>
+    </footer>
+                
+</body>
+</html>
